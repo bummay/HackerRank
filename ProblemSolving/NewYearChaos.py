@@ -6,29 +6,29 @@ import random
 import re
 import sys
 
+from collections import deque
+import time
 # Complete the minimumBribes function below.
 
 
 def minimumBribes(q):
     ret = 0
+
+    # print(time.time())
     for i in (range(len(q))):
-        # value = i のインデックス(=pos)を取得
-        pos = q.index(i + 1)
-        gap = i - pos
-        # posとvalue - 1の差 > 2 なら"Too chaotic"
-        if gap > 2:
-          ret = -1
-          print("Too chaotic")
-          break
-        # posとvalue - 1の差が 1 or 2ならlistを入れ替え & retに加算
-        elif gap == 2:
-          ret += gap
-          q[pos], q[pos+ 1],q[pos + 2] = q[pos + 1], q[pos + 2], q[pos]
-        elif gap == 1:
-          ret += gap
-          q[pos], q[pos + 1] = q[pos + 1], q[pos]
+      if q[i] - i > 3:
+        ret = -1
+        break
+      # if i % 1000 == 0:
+      #   print(time.time())
+      val = q[i]
+      numSmaller = len([j for j in q if val > j and q.index(j) > i])
+      ret += numSmaller
+
     if ret >= 0:
         print(ret)
+    else:
+        print("Too chaotic")
 
 if __name__ == '__main__':
     # t = int(input())
