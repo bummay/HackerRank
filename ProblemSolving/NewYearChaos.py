@@ -12,21 +12,19 @@ import time
 
 
 def minimumBribes(q):
-    ret = 0
+    moves = 0
+    for pos, val in enumerate(q):
+        if(val - 1) - pos > 2:
+            moves = -1
+            break
+        # 本来の位置or後ろにいる場合、一つ後ろの人が2回bribeした可能性がある
+        # →本来の一つ前～今の位置の間に自分より後ろにいた人をカウントする。
+        for j in range(max(0,val -2),pos):
+            if q[j] > val:
+                moves += 1
 
-    # print(time.time())
-    for i in (range(len(q))):
-      if q[i] - i > 3:
-        ret = -1
-        break
-      # if i % 1000 == 0:
-      #   print(time.time())
-      val = q[i]
-      numSmaller = len([j for j in q if val > j and q.index(j) > i])
-      ret += numSmaller
-
-    if ret >= 0:
-        print(ret)
+    if moves >= 0:
+        print(moves)
     else:
         print("Too chaotic")
 
@@ -39,4 +37,4 @@ if __name__ == '__main__':
     #     q = list(map(int, input().rstrip().split()))
 
     #     minimumBribes(q)
-    minimumBribes([1,2,5,3,7,8,6,4])
+    minimumBribes([2,5,1,3,4])
