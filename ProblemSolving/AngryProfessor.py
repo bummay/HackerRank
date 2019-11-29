@@ -10,20 +10,11 @@ import sys
 
 
 def angryProfessor(k, a):
-    a.sort()
-    i = 0
-    while i < len(a):
-        if a[i] < 1:
-            i += 1
-        else:
-            break
-
-    if i < k:
+    list_attendance = [i for i in a if i < 1]
+    if len(list_attendance) < k:
         return "YES"
     else:
         return "NO"
-
-
 
 if __name__ == '__main__':
     lst = [[3,[-1,-3,4,2]],[2,[0,-1,2,1]]]
