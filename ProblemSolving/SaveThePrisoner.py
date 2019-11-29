@@ -15,10 +15,12 @@ def saveThePrisoner(n, m, s):
 
     leftSweets = m - (n - s) - 1
 
-    while leftSweets >= 0:
-        leftSweets -= n
-        if leftSweets <= 0:
-            return n + leftSweets
+    ret = leftSweets % n
+    if ret == 0:
+        return n
+    else:
+        return ret
+
 
 
 
