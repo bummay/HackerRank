@@ -8,18 +8,20 @@ import sys
 
 # Complete the squares function below.
 def squares(a, b):
-    ret = 0
 
-    for i in range(a, b + 1):
-        sq = math.sqrt(i)
-        if sq == int(sq):
-            ret += 1
+    sqrt1 = int(math.sqrt(a))
+    sqrt2 = int(math.sqrt(b))
 
-    return ret
+    if sqrt1 == math.sqrt(a):
+        sqrt1 -= 1
+
+    return sqrt2 - sqrt1
 
 if __name__ == '__main__':
     lst = [[3, 9],
             [17, 24],
+            [35, 70],
+            [100, 1000],
             [465868129, 988379794],
             [181510012, 293922871],
             [395151610, 407596310],
