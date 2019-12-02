@@ -9,13 +9,15 @@ import sys
 # Complete the jumpingOnClouds function below.
 def jumpingOnClouds(c, k):
     ret = 100
+    lenClouds = len(c)
+
+    ret -= lenClouds // math.gcd(lenClouds, k)
 
     i = 0
-    while i < len(c):
+    while i < lenClouds:
         i += k
-        ret -= 1
-        if i >= len(c):
-            i -= len(c)
+        if i >= lenClouds:
+            i -= lenClouds
         if c[i] > 0:
             ret -= 2
         if i == 0 or ret < 0:
