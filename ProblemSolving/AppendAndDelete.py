@@ -33,6 +33,8 @@ def appendAndDelete(s, t, k):
 
     if gap == 0:
         ret = True
+    elif gap < 0:
+        ret = False
     elif gap % 2 == 0 or gap >= 2 * matched:
         ret = True
     else:
@@ -44,9 +46,11 @@ def appendAndDelete(s, t, k):
         return 'No'
 
 if __name__ == '__main__':
-    list_s = ['hackerhappy', 'aba', 'ashley']
-    list_t = ['hackerrank', 'aba', 'ash']
-    list_k = [9, 7, 2]
+    list_s = ['hackerhappy', 'aba', 'ashley', 'qwerasdf',
+              'asdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcv']
+    list_t = ['hackerrank', 'aba', 'ash', 'qwerbsdf',
+              'bsdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcv']
+    list_k = [9, 7, 2, 6, 100]
 
     for i in range(len(list_s)):
         print(appendAndDelete(list_s[i], list_t[i], list_k[i]))
