@@ -10,19 +10,36 @@ def getCombination(n, arr):
     arr.sort()
     combination = defaultdict(list)
     for i in range(n):
-        for j in range(math.floor(i / 2) + 1):
+        if i in (arr):
+            combination[i].append([i])
+        for j in range(1, math.floor(i / 2) + 1):
             k = i - j
-            isJin = j in (arr) or len(combination[j]) > 0 or j == 0
-            isKin = k in (arr) or len(combination[k]) > 0 or k == 0
-            if isJin and isKin:
-                if j == 0:
-                    combination[i].append([k])
-                elif k == 0:
-                    combination[i].append([j])
-                else:
-                    combination[i].append([j, k])
+            for p in range(len(combination[j])):
+                for q in range(len(combination[k])):
+                    toAppend = sorted(combination[j][p] + combination[k][q])
+                    if toAppend not in combination[i]:
+                        combination[i].append(toAppend)
 
-    return 0
+    return combination
+
+
+def getWays(n, c):
+    dictPatterns = getCombination(n, c)
+    ret = []
+
+    for i in range(1, math.floor(n / 2) + 1):
+        j = n - i
+        for p in range(len(dictPatterns[i])):
+            for q in range(len(dictPatterns[j])):
+                toAppend = sorted(dictPatterns[i][p] + dictPatterns[j][q])
+                if toAppend not in ret:
+                    ret.append(toAppend)
+    return len(ret)
 
 if __name__ == '__main__':
-    print(getCombination(10, [2,5,3,6]))
+    inputs = [
+                [10, [2, 5, 3, 6]],
+                [4, [1, 2, 3]]
+            ]
+    for input in inputs:
+        print(getWays(input[0], input[1]))
