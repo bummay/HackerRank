@@ -30,15 +30,16 @@ def splitCoins(val, coins, coinList, ret, dict):
             # print(appended)
             ret += 1
             break
+        isSet = False
         change = val - coin
         coinList += [coin]
-        if change <= coin:
+        if dict[change] < 0:
+            coinList.pop(-1)
+            # break
+        elif change <= coin:
             if dict[change] > 0 :
                 ret += dict[change]
                 coinList.pop(-1)
-            elif dict[change] < 0:
-                coinList.pop(-1)
-                # break
             else:
                 isGetPattern = True
                 if change in coins:
@@ -53,10 +54,7 @@ def splitCoins(val, coins, coinList, ret, dict):
                 dict[val] += dict[change]
                 if dict[change] == 0:
                     dict[change] = -1
-                # if coin >= change and change in coins:
-                #     ret += 1
-                #     if isGetPattern:
-                #         dict[change] += 1
+
         else:
             rec = splitCoins(change,coins,coinList, 0, dict)
             a = coinList.pop(-1)
@@ -70,6 +68,7 @@ def getWays(n, c):
     ret = 0
     c.sort(reverse = True)
     stock = defaultdict(int)
+    dictIsSet = defaultdict(bool)
     return splitCoins(n, c, [], ret, stock)
 
 
