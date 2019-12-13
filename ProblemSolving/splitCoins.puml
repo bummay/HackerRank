@@ -1,36 +1,12 @@
 @startuml
 
-(*) --> "get coin"
---> "isSet = False"
---> "get change"
-if "dict[change] < 0" then
---> [yes] "get coin"
-else
-    --> "add coinList"
-    if "coin >= change" then
-        [yes]if "dict[change] > 0" then
-            --> [yes] "ret += dict[change]"
-            --> "coinList.pop(-1)"
-            --> "get coin"
-        else
-            --> [no] "isSet = True"
-            -->"exec\nsplitCoins(change)"
-        endif
+(*) --> "コイン群を降順にソート"
+    if"コイン1枚で支払いが可能" then
+        -->[y] "ret += 1"
+        --> "分割可能なコインの最大値を取得"
     else
-        --> [no] "exec\nsplitCoins(change)"
+        --> "分割可能なコインの最大値を取得"
     endif
-    --> "coinList.pop()"
-    --> "ret += splitCoins(change)"
-    if "splitCoins(change) == 0" then
-        --> [yes]"dict[change] = -1"
-        --> "get coin"
-    else
-        [no] if "isSet" then
-                -->[yes] "dict[change] = ret"
-                --> "get coin"
-            else
-                --> [no]"get coin"
-            endif
-    endif
-endif
+
+
 @enduml
